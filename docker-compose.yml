@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  # Message Broker
+  nats:
+    image: nats:latest
+    container_name: nats-broker
+    ports:
+      - "4222:4222"   # NATS client port
+      - "8222:8222"   # NATS management HTTP monitor
+    networks:
+      - app-network
+
+  # Service 1: API Gateway
+  api-gateway:
+    build: ./api-gateway
+    container_name: api-gateway
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=${PORT}
+      - NATS_URL=${NATS_URL}
+      - API_KEY=${API_KEY}
+    depends_on:
+      - nats
+    networks:
+      - app-network
+
+  # Service 2: User Service
+  user-service:
+    build: ./user-service
+    container_name: user-service
+    environment:
+      - NATS_URL=${NATS_URL}
+    depends_on:
+      - nats
+    networks:
+      - app-network
+
+  # Service 3: Notification Service
+  notification-service:
+    build: ./notification-service
+    container_name: notification-service
+    environment:
+      - NATS_URL=${NATS_URL}
+    depends_on:
+      - nats
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
