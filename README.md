@@ -30,19 +30,19 @@ Local Execution (One Command)
 Clone the repository:
 
 Bash
-git clone <your-github-repo-url>
-cd trams-assignment-intern
-Create .env file:
+    git clone <your-github-repo-url>
+    cd trams-assignment-intern
+    Create .env file:
 
 Bash
-cp .env.example .env
-Spin up all microservices and NATS broker:
+    cp .env.example .env
+    Spin up all microservices and NATS broker:
 
 Bash
-docker-compose up --build
-API Documentation
-Create User
-URL: http://localhost:3000/api/users
+    docker-compose up --build
+    API Documentation
+    Create User
+    URL: http://localhost:3000/api/users
 
 Method: POST
 
