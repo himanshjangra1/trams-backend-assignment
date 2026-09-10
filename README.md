@@ -11,6 +11,7 @@ graph TD
     NATS -->|Process & Reply| UserSvc[User Service]
     UserSvc -->|Publish Event user.created| NATS
     NATS -->|Asynchronous Event| NotifSvc[Notification Service]
+```
 
     Components
 API Gateway (Port 3000): Acts as the public entry point. Validates incoming requests using x-api-key header authentication and proxies commands to the internal NATS bus.
